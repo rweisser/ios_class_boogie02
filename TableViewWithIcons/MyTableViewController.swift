@@ -140,7 +140,11 @@ class MyTableViewController: UITableViewController {
     // which happens automatically, or if we were supposed to force the delection programmatically.
     // I chose the second options.  It seemed more interesting.
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        sleep(2)
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        dispatch_after(
+            dispatch_time(DISPATCH_TIME_NOW, Int64(2.0 * Double(NSEC_PER_SEC))),
+            dispatch_get_main_queue(),
+            {
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            })
     }
 }
